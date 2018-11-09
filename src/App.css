@@ -1,4 +1,9 @@
 .App {
   display: grid;
   grid-gap: 2em;
+  background: darkgreen;
+}
+
+.done {
+  text-decoration: line-through;
 }

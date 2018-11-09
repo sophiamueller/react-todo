@@ -3,7 +3,12 @@ import './App.css'
 
 class Todolist extends Component {
   render() {
-    return <li>{this.props.text}</li>
+    const { text, click, isDone } = this.props
+    return (
+      <li onClick={click} className={isDone ? 'done' : ''}>
+        {text}
+      </li>
+    )
   }
 }
 
