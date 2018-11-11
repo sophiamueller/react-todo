@@ -1,12 +1,16 @@
 import React, { Component } from 'react'
 import Todolist from './Todolist'
 import Input from './Input'
+import Counter from './Counter'
+import Heading from './Heading'
 import './App.css'
+import './Counter.css'
+import './Heading.css'
 
 class App extends Component {
   state = {
     todos: [
-      { text: 'Geschenk1', done: true },
+      { text: 'Geschenk1', done: false },
       { text: 'Geschenk2', done: false },
       { text: 'Geschenk3', done: false }
     ]
@@ -27,6 +31,7 @@ class App extends Component {
 
   toggleDone = index => {
     const { todos } = this.state
+
     const newTodos = [
       ...todos.slice(0, index),
       { ...todos[index], done: !todos[index].done },
@@ -38,20 +43,34 @@ class App extends Component {
     })
   }
 
+  deleteTodo = index => {
+    const { todos } = this.state
+    const newTodos = [...todos.slice(0, index), ...todos.slice(index + 1)]
+
+    this.setState({
+      todos: newTodos
+    })
+  }
+
   render() {
+    const countTodos = this.state.todos.filter(todos => todos.isDone).length
     return (
       <div className="App">
+        <header />
+        <Heading />
+        <Counter count={countTodos} />
         <Input keyupfunction={this.addTodoArray} />
-        <div>
+        <ul>
           {this.state.todos.map((todo, index) => (
             <Todolist
               key={index}
               isDone={todo.done}
               text={todo.text}
-              click={() => this.toggleDone(index)}
+              onClick={() => this.toggleDone(index)}
+              onDelete={() => this.deleteTodo(index)}
             />
           ))}
-        </div>
+        </ul>
       </div>
     )
   }
