@@ -3,7 +3,7 @@ import './Heading.css'
 
 export class Heading extends Component {
   render() {
-    return <p className="Heading">To-do: Weihnachtswünsche </p>
+    return <span className="Heading">To-do: Weihnachtswünsche </span>
   }
 }
 

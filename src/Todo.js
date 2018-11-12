@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import './App.css'
 
-class Todolist extends Component {
+class Todo extends Component {
   render() {
     const { text, onClick, isDone, onDelete } = this.props
 
@@ -9,7 +8,6 @@ class Todolist extends Component {
       <li>
         <span onClick={onClick} className={isDone ? 'done' : ''}>
           {text}
-          <checkbox type="checkbox" className="Checkbox" />
         </span>
         <button onClick={onDelete}>&times;</button>
       </li>
@@ -17,4 +15,4 @@ class Todolist extends Component {
   }
 }
 
-export default Todolist
+export default Todo

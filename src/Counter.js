@@ -3,7 +3,7 @@ import './Counter.css'
 
 class Counter extends Component {
   render() {
-    return <p className="Counter">Done: {this.props.count}</p>
+    return <div className="Counter">Done: {this.props.count}</div>
   }
 }
 

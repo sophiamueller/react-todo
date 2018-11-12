@@ -1,39 +1,36 @@
 .App {
   box-sizing: content-box;
   box-shadow: 7;
-  background: grey;
+  background: linear-gradient(gray, darkgreen);
   max-width: 400px;
   min-height: 80vh;
   margin: auto;
   border-radius: 10px;
   border: solid 30px;
-  border-color: black;
+  border: darkred dotted 9px;
 }
 
 ul {
-  display: flex;
   flex-direction: column;
-  background: darkgray;
+  background: linear-gradient(darkgreen, darkred);
   margin: 1.5rem 1;
   padding: 5px;
-  display: flex;
 }
 
 li {
-  display: flex;
   justify-content: space-between;
-  background: olivedrab;
+  background: rgb(16, 59, 16);
   margin: 10px;
   padding: 5px;
 }
 
 button {
-  border: 3px solid lightgreen;
+  border: 1.5px solid darkred;
+  border-radius: 60px;
 }
 
 span {
   color: white;
-  border: 2px solid forestgreen;
 }
 
 .TodoList {
@@ -46,7 +43,7 @@ span {
 
 .done {
   text-decoration: line-through;
-  color: deeppink;
+  color: hotpink;
 }
 
 footer {
@@ -60,14 +57,21 @@ footer {
   background: #f2f1ec;
 }
 
-input {
+.InputBox {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-content: center;
+  margin: 30px;
+}
+
+input {
   height: 30px;
   width: 300px;
-  border: 4px dotted;
-  font-size: 15px dotted hotpink;
+  border: darkred;
+  font-size: 30px rgb(31, 4, 18);
   outline: none;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 30px rgba(223, 11, 71, 0.4);
 }
