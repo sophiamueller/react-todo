@@ -60,14 +60,14 @@ footer {
   background: #f2f1ec;
 }
 
-.Input {
+input {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
   height: 30px;
   width: 300px;
-  border: 2px dotted red;
-  font-size: 14px;
+  border: 4px dotted;
+  font-size: 15px dotted hotpink;
   outline: none;
 }

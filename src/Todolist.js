@@ -9,6 +9,7 @@ class Todolist extends Component {
       <li>
         <span onClick={onClick} className={isDone ? 'done' : ''}>
           {text}
+          <checkbox type="checkbox" className="Checkbox" />
         </span>
         <button onClick={onDelete}>&times;</button>
       </li>
