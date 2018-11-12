@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import uid from 'uid'
 import Todo from './Todo'
 import Input from './Input'
 import Counter from './Counter'
 import Heading from './Heading'
+import Separator from './Separator'
 import './App.css'
 
 class App extends Component {
@@ -13,6 +15,7 @@ class App extends Component {
   render() {
     this.save()
     const countTodos = this.state.todos.filter(todo => todo.done).length
+
     return (
       <div className="App">
         <Heading />
@@ -20,8 +23,11 @@ class App extends Component {
         <div className="InputBox">
           <Input handleKeyUp={this.addTodo} />
         </div>
-
-        <ul>{this.renderTodos()}</ul>
+        <Separator text="TODO" />
+        {this.renderOpenTodos()}
+        <Separator text="DONE" />
+        {this.renderDoneTodos()}
+        <ul />
       </div>
     )
   }
@@ -29,7 +35,10 @@ class App extends Component {
   addTodo = event => {
     if (event.key === 'Enter') {
       const input = event.target
-      const newEntry = [{ text: input.value, done: false }, ...this.state.todos]
+      const newEntry = [
+        { text: input.value, done: false, id: uid() },
+        ...this.state.todos
+      ]
       this.setState({
         todos: newEntry
       })
@@ -37,8 +46,9 @@ class App extends Component {
     }
   }
 
-  toggleDone = index => {
+  toggleDone = id => {
     const { todos } = this.state
+    const index = todos.findIndex(todo => todo.id === id)
     const todo = todos[index]
 
     this.setState({
@@ -58,16 +68,44 @@ class App extends Component {
     })
   }
 
-  renderTodos() {
-    return this.state.todos.map((todo, index) => (
+  renderOpenTodos() {
+    return this.state.todos
+      .filter(todo => !todo.done)
+      .map((todo, index) => (
+        <Todo
+          key={index}
+          text={todo.text}
+          done={todo.done}
+          onToggle={() => this.toggleTodo(index)}
+          onDelete={() => this.deleteTodo(index)}
+        />
+      ))
+  }
+
+  renderDoneTodos() {
+    return this.state.todos
+      .filter(todo => todo.done)
+      .map((todo, index) => (
+        <Todo
+          key={index}
+          text={todo.text}
+          done={todo.done}
+          onToggle={() => this.toggleTodo(index)}
+          onDelete={() => this.deleteTodo(index)}
+        />
+      ))
+  }
+
+  renderSingleTodo = (todo, index) => {
+    return (
       <Todo
         key={index}
-        isDone={todo.done}
         text={todo.text}
-        onClick={() => this.toggleDone(index)}
-        onDelete={() => this.deleteTodo(index)}
+        done={todo.done}
+        onToggle={() => this.toggleTodo(todo.id)}
+        onDelete={() => this.deleteTodo(todo.id)}
       />
-    ))
+    )
   }
 
   save() {

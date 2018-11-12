@@ -1,0 +1,13 @@
+.Seperator {
+  display: flex;
+}
+
+.Separator .hr {
+  width: 100%;
+  margin: 0 10px 8px;
+  border-bottom: 4px solid deeppink;
+}
+
+.Separator span {
+  white-space: nowrap;
+}
