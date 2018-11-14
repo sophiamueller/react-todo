@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import uid from 'uid'
+import styled from 'styled-components'
 import Todo from './Todo'
 import Input from './Input'
 import Counter from './Counter'
 import Heading from './Heading'
 import Separator from './Separator'
+
 import './App.css'
 
 class App extends Component {
@@ -14,10 +16,22 @@ class App extends Component {
 
   render() {
     this.save()
+
+    const Wrapper = styled.section`
+      box-sizing: content-box;
+      box-shadow: 7;
+      background: linear-gradient(gray, darkgreen);
+      max-width: 400px;
+      min-height: 80vh;
+      margin: auto;
+      border-radius: 10px;
+      border: solid 30px;
+      border: darkred dotted 9px;
+    `
     const countTodos = this.state.todos.filter(todo => todo.done).length
 
     return (
-      <div className="App">
+      <Wrapper>
         <Heading />
         <Counter count={countTodos} />
         <div className="InputBox">
@@ -27,26 +41,17 @@ class App extends Component {
         {this.renderOpenTodos()}
         <Separator text="DONE" />
         {this.renderDoneTodos()}
-        <ul />
-      </div>
+      </Wrapper>
     )
   }
 
-  addTodo = event => {
-    if (event.key === 'Enter') {
-      const input = event.target
-      const newEntry = [
-        { text: input.value, done: false, id: uid() },
-        ...this.state.todos
-      ]
-      this.setState({
-        todos: newEntry
-      })
-      input.value = ''
-    }
+  addTodo = text => {
+    this.setState({
+      todos: [{ text, done: false, id: uid() }, ...this.state.todos]
+    })
   }
 
-  toggleDone = id => {
+  toggleTodo = id => {
     const { todos } = this.state
     const index = todos.findIndex(todo => todo.id === id)
     const todo = todos[index]
@@ -60,8 +65,9 @@ class App extends Component {
     })
   }
 
-  deleteTodo = index => {
+  deleteTodo = id => {
     const { todos } = this.state
+    const index = todos.findIndex(todo => todo.id === id)
 
     this.setState({
       todos: [...todos.slice(0, index), ...todos.slice(index + 1)]
@@ -71,35 +77,17 @@ class App extends Component {
   renderOpenTodos() {
     return this.state.todos
       .filter(todo => !todo.done)
-      .map((todo, index) => (
-        <Todo
-          key={index}
-          text={todo.text}
-          done={todo.done}
-          onToggle={() => this.toggleTodo(index)}
-          onDelete={() => this.deleteTodo(index)}
-        />
-      ))
+      .map(this.renderSingleTodo)
   }
 
   renderDoneTodos() {
-    return this.state.todos
-      .filter(todo => todo.done)
-      .map((todo, index) => (
-        <Todo
-          key={index}
-          text={todo.text}
-          done={todo.done}
-          onToggle={() => this.toggleTodo(index)}
-          onDelete={() => this.deleteTodo(index)}
-        />
-      ))
+    return this.state.todos.filter(todo => todo.done).map(this.renderSingleTodo)
   }
 
-  renderSingleTodo = (todo, index) => {
+  renderSingleTodo = todo => {
     return (
       <Todo
-        key={index}
+        key={todo.id}
         text={todo.text}
         done={todo.done}
         onToggle={() => this.toggleTodo(todo.id)}

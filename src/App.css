@@ -1,15 +1,3 @@
-.App {
-  box-sizing: content-box;
-  box-shadow: 7;
-  background: linear-gradient(gray, darkgreen);
-  max-width: 400px;
-  min-height: 80vh;
-  margin: auto;
-  border-radius: 10px;
-  border: solid 30px;
-  border: darkred dotted 9px;
-}
-
 ul {
   flex-direction: column;
   background: linear-gradient(darkgreen, darkred);
