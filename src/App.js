@@ -8,6 +8,7 @@ import Heading from './Heading'
 import Separator from './Separator'
 
 import './App.css'
+import ToggleButton from './ToggleButton'
 
 class App extends Component {
   state = {
@@ -32,6 +33,12 @@ class App extends Component {
 
     return (
       <Wrapper>
+        <ToggleButton
+          defaultText="foo"
+          alternativeText="bar"
+          isDefault={true}
+          onClick={() => console.log('click test')}
+        />
         <Heading />
         <Counter count={countTodos} />
         <div className="InputBox">
@@ -104,9 +111,9 @@ class App extends Component {
     try {
       return (
         JSON.parse(localStorage.getItem('todo-ap--todos')) || [
-          { text: 'Geschenk1 ', done: false },
-          { text: 'Geschenk2 ', done: false },
-          { text: 'Geschenk3 ', done: false }
+          { text: 'Geschenk1 ', done: false, id: uid() },
+          { text: 'Geschenk2 ', done: false, id: uid() },
+          { text: 'Geschenk3 ', done: false, id: uid() }
         ]
       )
     } catch (err) {

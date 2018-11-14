@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 
 const Wrapper = styled.button`
   color: deeppink;
@@ -23,12 +24,12 @@ export default class ToggleButton extends Component {
   }
 
   render() {
-    const { defaultText, alternativeText, onClick, isDefault } = this.props
+    const { defaultText, alternativeText } = this.props
     const { isDefault } = this.state
 
     return (
       <Wrapper
-        className={esDefault ? '' : 'active'}
+        className={isDefault ? '' : 'active'}
         onClick={this.handleToggle}
       >
         {isDefault ? defaultText : alternativeText}
