@@ -2,40 +2,40 @@ import React from 'react'
 
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { linkTo } from '@storybook/addon-links'
+import { text, boolean, number, color } from '@storybook/addon-knobs'
+import Todo from '../components/Todo'
+import Counter from '../components/Counter'
+import Input from '../components/Input'
+import Separator from '../components/Separator'
 
-import { Button, Welcome } from '@storybook/react/demo'
-import Todo from '../Todo'
-
-storiesOf('Welcome', module).add('to Storybook', () => (
-  <Welcome showApp={linkTo('Button')} />
-))
-
-storiesOf('Button', module)
+storiesOf('Todo', module)
   .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
+    <React.Fragment>
+      <Todo
+        text={text('Display Text', 'text')}
+        done={boolean('foo', false)}
+        onToggle={action('toggle')}
+        onDelete={action('delete')}
+      />
+    </React.Fragment>
   ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>
-      <span role="img" aria-label="so cool">
-        😀 😎 👍 💯
-      </span>
-    </Button>
+  .add('in done state', () => (
+    <Todo
+      text={text('Display Text', 'Hello world')}
+      done={true}
+      onToggle={action('toggle')}
+      onDelete={action('delete')}
+    />
   ))
 
-storiesOf('Todo', module).add('width text', () => (
-  <Todo
-    text="Hello world"
-    done={false}
-    onToggle={action('toggle')}
-    onDelete={action('delete')}
-  />
+storiesOf('Counter', module).add('displays done count for example 7', () => (
+  <Counter count={number('Counter number', 29)} />
 ))
 
-.add('in done state', () => (
-  <Todo
-  text="Hello world"
-  done={done}
-  onToggle={action('toggle')}
-  onDelete={action('delete')}
+storiesOf('Input', module).add('Input field for text', () => (
+  <Input handleKeyUp={action('text')} />
+))
+
+storiesOf('Separator', module).add('Separator for Task is done', () => (
+  <Separator text="TODO" />
 ))
